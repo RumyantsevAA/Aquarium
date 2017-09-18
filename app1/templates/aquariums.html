@@ -1,0 +1,79 @@
+﻿{% extends "base.html" %}
+{% block menu %}
+	{% ifequal action_id 0 %}
+	<table border="1">
+		<tr>
+			<td><a href="/?act=logout">Выйти</a></td>
+			<td><a href="/aquariums/?act=new">Добавить</a></td>
+		</tr>
+	</table>
+	{% endifequal %}
+	{% ifequal action_id 1 %}
+	<table border="1">
+		<tr>
+			<td><a href="/aquariums">К списку аквариумов</a></td>
+			<td><a href="{{ ref }}">Назад</a></td>
+			<td><a href="/?act=logout">Выйти</a></td>
+		</tr>
+	</table>
+	{% endifequal %}
+	{% ifequal action_id 2 %}
+	<table border="1">
+		<tr>
+			<td><a href="/aquariums">К списку аквариумов</a></td>
+			<td><a href="{{ ref }}">Назад</a></td>
+			<td><a href="/?act=logout">Выйти</a></td>
+		</tr>
+	</table>
+	{% endifequal %}
+{% endblock %}
+{% block content %}
+  <form action='.' method='post'>  {% csrf_token %}
+	<table border="1">
+	  <caption><b>Список аквариумов:</b></caption>
+	  <tr>
+        <th>Название</th>
+        <th>Объём</th>
+        <th>Заполненность</th>
+        <th>Количество итераций</th>
+      </tr>
+	  
+	  {% for r in aquarium_list %}
+		<tr><td>{{ r.Name }}</td><td>{{ r.Volume }}</td><td>{{ r.FilledVolume }}</td><td>{{ r.Age }}</td>
+		<td><a href="/aquariums/?act=delete&id={{ r.id }}">Удалить</a></td>
+		<td><a href="/aquariums/?act=edit&id={{ r.id }}">Редактировать</a></td>
+		<td><a href="/aquariums/?act=iterate&id={{ r.id }}">Итерация</a></td>
+		<td><a href="/aquariums/?act=fishlist&id={{ r.id }}">Список рыбок</a></td>
+		</tr>
+	  {% endfor %}
+	</table>
+  </form>
+{% endblock %}
+{% block form %}
+	{% ifequal action_id 0 %}
+  <form name="NewAquarium" action='/aquariums/' method='post'>  {% csrf_token %}
+	<table>
+        {{form.as_p}}
+    </table>
+	<input name="addNewAquarium" type="submit" value="CREATE" /><br>
+  </form>
+  {% endifequal %}
+	{% ifequal action_id 1 %}
+  <form action='.' method='post'>  {% csrf_token %}
+    <label><b>{{ description }}</b></label><Br>
+	<td>&nbsp;<a href="./?act={{ action }}&id={{ req2 }}&answer=yes">Да</a></td><br>
+    <td>&nbsp;<a href="./?act={{ action }}&id={{ req2 }}&answer=no">Нет</a></td>
+  </form>
+  {% endifequal %}
+	{% ifequal action_id 2 %}
+  <form action='/' method='post'>  {% csrf_token %}
+	<p>Редактировать аквариум</p>
+    <label for="name">Name:</label>
+    <input type="text" name="name" value="{{ aquarium_name }}" id="name">{{ aquarium_name }}<br>
+	<label for="volume">Volume:</label>
+    <input type="text" name="volume" value="{{ aquarium_volume }}" id="volume">{{ aquarium_volume }}<br>
+	<td><a href="./?act=clean&id={{ id }}">Очистить аквариум</a></td>
+	<input name="editAquarium" type="submit" value="EDIT" /><br>
+  </form>
+  {% endifequal %}
+{% endblock %}

@@ -1,0 +1,12 @@
+﻿{% extends "base.html" %}
+{% block content %}
+  <form action='/fish/?aqua={{ req3 }}&id={{ req2 }}' method='post'>  {% csrf_token %}
+ 	<a href="./?act=fishlist&id={{ req3 }}">К списку рыб</a><br>
+	<input name="fishToAquarium" type="submit" value="CHANGE AQUARIUM" /><br>
+	<select name="select" width="300" style="width: 300px" size=20>
+	  {% for r in aquarium_list %}
+        <option value="{{forloop.counter}}">{{ r.Name }}</option>
+	  {% endfor %}
+	</select>
+  </form>
+{% endblock %}

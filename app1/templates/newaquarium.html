@@ -1,0 +1,10 @@
+﻿{% extends "base.html" %}
+{% block content %}
+  <form name="NewAquarium" action='/aquariums/' method='post'>  {% csrf_token %}
+ 	<td><a href="./">К аквариумам</a></td>
+	<input name="addNewAquarium" type="submit" value="CREATE" /><br>
+	<table>
+        {{form.as_p}}
+    </table>
+  </form>
+{% endblock %}

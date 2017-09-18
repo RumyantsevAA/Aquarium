@@ -1,0 +1,31 @@
+﻿{% extends "base.html" %}
+{% block content %}
+  <form action='.' method='post'>  {% csrf_token %}
+ 	<td><a href="/fish/?act=new&id={{ req3 }}">Назад</a></td>
+	<table border="1">
+	<td>
+		<label><b>Список характеристик - {{ fishType.FishName }}:</b></label><br>
+        <label><b>Минимальное время жизни</b></label><br>
+        <label><b>Максимальное время жизни</b></label><br>
+        <label><b>Необходимый объём воды</b></label><br>
+        <label><b>Возраст начала нереста</b></label>
+		<label><b>Период повтора нереста</b></label><br>
+		<label><b>Минимальное количество мольков в нересте</b></label><br>
+		<label><b>Максимальное количество мольков в нересте</b></label><br>
+		<label><b>Выживаемость мольков</b></label><br>
+		<label><b>Период выживаемости</b></label><br>
+	</td>
+	<td width="100" align="middle">
+		<label>{{ fishType.MinLifeTime }}</label><br>
+		<label>{{ fishType.MaxLifeTime }}</label><br>
+		<label>{{ fishType.LifeVolume }}</label><br>
+		<label>{{ fishType.TimeToGoNerest }}</label><br>
+		<label>{{ fishType.NerestPeriod }}</label><br>
+		<label>{{ fishType.MinFishCountInNerest }}</label><br>
+		<label>{{ fishType.MaxNerestCount }}</label><br>
+		<label>{{ fishType.DeathRate }}</label><br>
+		<label>{{ fishType.DeathRateTime }}</label><br>
+	</td>
+	</table>
+  </form>
+{% endblock %}

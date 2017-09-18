@@ -1,0 +1,26 @@
+﻿{% extends "base.html" %}
+{% block content %}
+  <form action='.' method='post'> {% csrf_token %}
+ 	<td><a href="./">К аквариумам</a></td>
+	<td><a href="/aquariums/?act=iterate&id={{ req2 }}">Итерация</a></td>
+	<td><a href="/fish/?act=new&aqua={{ req2 }}">Добавить рыбку</a></td>
+	<table border="1">
+	  <caption><b>Список рыбок:</b></caption>
+	  <tr>
+        <th>Имя</th>
+        <th>Вид</th>
+        <th>Возраст</th>
+        <th>Стадия</th>
+      </tr>
+	  
+	  {% for r in fish_list %}
+		<tr><td>{{ r.Name }}</td><td>{{ r.getFishTypeName }}</td><td>{{ r.CurrentTime }}</td><td>{{ r.getFishStage }}</td>
+		<td><a href="/fish/?act=delete&id={{ r.id }}">Удалить</a></td>
+		<td><a href="/fish/?act=toaquarium&id={{ r.id }}">Пересадить</a></td>
+		</tr>
+	  {% endfor %}
+	</table>
+	<td><a href="./?act=fishlist&id={{ req2 }}&page={{ back }}">Предыдущая страница</a></td>
+	<td><a href="./?act=fishlist&id={{ req2 }}&page={{ next }}">Следующая страница</a></td>
+  </form>
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block content %}
+  {% if error %}
+    <p class="error">Sorry, incorrect login or password</p>
+  {% endif %}
+  <form action='.' method='post'>  {% csrf_token %}
+    <label for="username">Login:</label>
+    <input id="username" type="text" name="username" value="" id="username">
+    <label for="password">Password:</label>
+    <input id="password" type="password" name="password" value="" id="password">
+
+    <input name="confirmRegister" type="submit" value="REGISTER" /><br>
+	<td><a href="/">Главная страница</a></td>
+    <input type="hidden" name="next" value="{{ next|escape }}" />
+  </form>
+{% endblock %}
